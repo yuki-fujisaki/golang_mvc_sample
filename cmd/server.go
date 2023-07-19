@@ -6,13 +6,21 @@ import (
 	"golang_mvc_sample/pkg/model"
 	"log"
 	"net/http"
+	"os"
 
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	db, err := gorm.Open(sqlite.Open("mydatabase.db"), &gorm.Config{})
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	dbURL := os.Getenv("DATABASE_URL")
+	db, err := gorm.Open(sqlite.Open(dbURL), &gorm.Config{})
 	if err != nil {
 		log.Fatalf("failed to connect database: %v", err)
 	}
@@ -20,6 +28,8 @@ func main() {
 	if err := db.AutoMigrate(&model.User{}); err != nil {
 		log.Fatalf("failed to migrate database: %v", err)
 	}
+
+	model.DB = db
 
 	r := router.Routes()
 
