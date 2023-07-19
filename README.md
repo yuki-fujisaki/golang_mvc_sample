@@ -4,8 +4,10 @@
 ```
 .
 ├── cmd
-│   ├── router.go # controllerをroutingに登録する。server.goから呼び出される。
-│   └── server.go # serverを起動するmain関数を書く
+│   └── cmd
+│       ├── server.go # serverを起動するmain関数を書く
+│       └── router
+│           └── router.go # controllerをroutingに登録する。server.goから呼び出される。
 ├── db
 │   └── migrations
 │       └── 20210405064956_user.sql # dbのマイグレーションを書く
