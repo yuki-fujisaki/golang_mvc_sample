@@ -1,4 +1,4 @@
--- +migrate Up
+-- migrate:up
 
 CREATE TABLE
     users (
@@ -9,6 +9,6 @@ CREATE TABLE
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
--- +migrate Down
+-- migrate:down
 
 DROP TABLE users;
